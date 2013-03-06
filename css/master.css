@@ -1,0 +1,165 @@
+body {
+    background-color: white;
+}
+
+.main_table {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+}
+
+.table_margin_tr {
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+.table_margin_td {
+    height: 100%;
+    width: 10%;
+    background: transparent;
+}
+
+.table_margin_main {
+    width: 100%;
+    height: 100%;
+}
+
+#heading_homepage {
+    font-family: arial, sans serif;
+
+}
+
+.subtitle {
+    font-family: arial, sans serif;
+    font-style: italic;
+    color: grey;
+}
+
+.chat_main_table {
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    background: white;
+}
+
+.msg_tr {
+    padding-top: 15px;
+    width: 100%;
+    height: 80%;
+    vertical-align: top;
+}
+
+.msg_input_tr {
+    width: 100%;
+    height: 10%;
+    vertical-align: middle;
+}
+
+#msg_input {
+    font-size: large;
+    height: 20px;
+    width: 100%;
+}
+
+#msg_div {
+    vertical-align: middle;
+    overflow: auto;
+    padding-right: 10px;
+    width: 100%;
+    height: 100%;
+    font-family: arial, sans-serif;
+}
+
+#msg_input_button {
+    visibility:hidden;
+    font-size: large;
+    /* width: 8%; */
+    height: 50px;
+}
+
+.pick_table {
+    position: fixed;
+    top: 0px;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 5, 0.5);
+}
+
+.pick_tr{
+    width: 100%;
+    height: 20px;
+}
+
+.pick_td {
+    width: 15%;
+    height:100%;
+}
+
+.pick_div_td {
+    box-shadow: 10px 10px 5px rgb(100,100,100);
+    padding-left: 10px;
+    background: white;
+    font-family: arial, sans-serif;
+    vertical-align: top;
+    overflow: auto;
+    height: 80%;
+    width: 60%;
+}
+
+#pick_div {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.bubbleOdd {
+    font-size: 30px;
+    /* margin: 10px; */
+    /* padding: 5px; */
+    text-align: right;
+    color: #00BB3F;
+    padding-right: 10px;
+    /* box-shadow: 5px 5px 5px rgb(100, 100, 100); */
+    /* border-radius: 5px; */
+    /* background-image: -webkit-linear-gradient(top, #9FF33D, #00BB3F); */
+    /* background-image: -moz-linear-gradient(top, #9FF33D, #00BB3F); */
+    /* background-image: -ms-linear-gradient(top, #9FF33D, #00BB3F); */
+    /* background-image: -o-linear-gradient(top, #9FF33D, #00BB3F); */
+    /* background-image: linear-gradient(top, #9FF33D, #00BB3F); */
+}
+
+.bubbleEven {
+    font-size: 30px;
+    /* margin: 10px; */
+    /* padding: 5px; */
+    text-align: left;
+    color: #3D9AD1;
+    padding-left: 10px;
+    /* box-shadow: 5px 5px 5px rgb(100, 100, 100); */
+    /* border-radius: 5px; */
+    /* background-image: -webkit-linear-gradient(top, #34C6CD, #3D9AD1); */
+    /* background-image: -moz-linear-gradient(top, #34C6CD, #3D9AD1); */
+    /* background-image: -ms-linear-gradient(top, #34C6CD, #3D9AD1); */
+    /* background-image: -o-linear-gradient(top, #34C6CD, #3D9AD1); */
+    /* background-image: linear-gradient(top, #34C6CD, #3D9AD1); */
+    
+}
+
+audio {
+    visibility: hidden;
+    z-index: -10;
+    top: 0px;
+    left: 0px;
+}
+
+.msg_td {
+    vertical-align: middle;
+}
+
+label {
+    font-family: arial, sans serif;
+}

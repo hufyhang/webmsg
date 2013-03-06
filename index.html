@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/master.css" type="text/css" media="screen" charset="utf-8" />
+    <script src="js/eventsource.js"></script>
+    <script src="js/jquery-1.8.2.js"></script>
+    <script src="js/main.js"></script>
+    <title>Welcome to WebMsg</title>
+</head>
+<body>
+    <table class="main_table" border="0">
+        <tr class="table_margin_tr"></tr>
+        <tr class="table_margin_main">
+            <td class="table_margin_td"></td>
+            <td>
+                <div><h1 id="heading_homepage">WebMsg Open Service</h1></div>
+                <div class="subtitle">Please enter your nickname and the name of the session that you want to participate.</div>
+                <div>
+                    <label>Nickname: </label>
+                    <input type="TEXT" id="homepage_input_id" required />
+                    <label>Session name: </label>
+                    <input type="TEXT" id="homepage_input_session" required /></div>
+                <br/>
+                <input value="Enter" type="BUTTON" id="homepage_button"/>
+            </td>
+            <td class="table_margin_td"></td>
+        </tr>
+    </table>
+
+
+    <table class="chat_main_table" id="chat_main_table">
+        <tr class="msg_tr">
+            <td class="table_margin_td"></td>
+            <td class="msg_td"><div id="msg_div">
+                </div></td>
+            <td class="table_margin_td"></td>
+        </tr>
+        <tr class="msg_input_tr">
+            <td class="table_margin_td"></td>
+            <td><input type="TEXT" id="msg_input" placeholder="Write a message..."/><input type="button" id="msg_input_button" value="Send"/><label>M:</label><input type="checkbox" id="mute_box"/><br/></td>
+            <td class="table_margin_td"></td>
+        </tr>
+    </table>
+
+    <table class="pick_table" border="0">
+        <tr class="pick_tr"></tr>
+        <tr><td class="pick_td"></td>
+            <td class="pick_div_td"><div id="pick_div"></div>
+            </td>
+        <td class="pick_td"></td></tr>
+        <tr class="pick_tr"></tr>
+    </table>
+
+    <audio id="sendAudio"><source src="mp3/send.mp3" type="audio/mpeg"></audio>
+    <audio id="msgAudio"><source src="mp3/msg.mp3" type="audio/mpeg"></audio>
+
+</body>
+</html>
