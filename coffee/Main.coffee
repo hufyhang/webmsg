@@ -15,8 +15,9 @@ $ ->
         'LTYC': 'img/ltyc.jpeg'
         'WHAT??!!': 'img/what.jpg'
         'BUT WHY?': 'img/butwhy.jpeg'
+        'THX': 'img/thx.jpeg'
 
-    user = undefined
+    user = null
     sendSound = document.getElementById('sendAudio')
     msgSound = document.getElementById('msgAudio')
     old = ''
@@ -46,6 +47,9 @@ $ ->
 
     $('#msg_input_button').click( ->
         return if $('#msg_input').val() is ''
+        if $('#msg_input').val() is 'whereami'
+            $('#msg_input').val whereami()
+            return
         if (value = magic[$('#msg_input').val().toUpperCase()])?
             msg = encodeURIComponent Checkurl 'img:' + value
         else
@@ -95,10 +99,15 @@ $ ->
         msgSound.muted = true
     ).focusout( ->
         isFocused = false
-        msgSound.muted = false if not $('#mute_box').checked
+        msgSound.muted = false if document.getElementById('mute_box').checked is false
+        msgSound.muted = true if document.getElementById('mute_box').checked is true
     )
 
+    whereami = ->
+        user.getSession()
+
     setInterval( ->
+        return if not user?
         if not isFocused and isNew
             if document.title is title
                 document.title = 'New Message'

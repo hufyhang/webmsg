@@ -4,7 +4,7 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $(function() {
-    var Checkurl, isFocused, isNew, magic, msgSound, old, sendSound, title, user;
+    var Checkurl, isFocused, isNew, magic, msgSound, old, sendSound, title, user, whereami;
     title = '';
     isFocused = true;
     isNew = false;
@@ -20,9 +20,10 @@
       '...': 'img/nocomments.jpg',
       'LTYC': 'img/ltyc.jpeg',
       'WHAT??!!': 'img/what.jpg',
-      'BUT WHY?': 'img/butwhy.jpeg'
+      'BUT WHY?': 'img/butwhy.jpeg',
+      'THX': 'img/thx.jpeg'
     };
-    user = void 0;
+    user = null;
     sendSound = document.getElementById('sendAudio');
     msgSound = document.getElementById('msgAudio');
     old = '';
@@ -56,6 +57,10 @@
     $('#msg_input_button').click(function() {
       var msg, value;
       if ($('#msg_input').val() === '') {
+        return;
+      }
+      if ($('#msg_input').val() === 'whereami') {
+        $('#msg_input').val(whereami());
         return;
       }
       if ((value = magic[$('#msg_input').val().toUpperCase()]) != null) {
@@ -110,11 +115,20 @@
       return msgSound.muted = true;
     }).focusout(function() {
       isFocused = false;
-      if (!$('#mute_box').checked) {
-        return msgSound.muted = false;
+      if (document.getElementById('mute_box').checked === false) {
+        msgSound.muted = false;
+      }
+      if (document.getElementById('mute_box').checked === true) {
+        return msgSound.muted = true;
       }
     });
+    whereami = function() {
+      return user.getSession();
+    };
     setInterval(function() {
+      if (!(user != null)) {
+        return;
+      }
       if (!isFocused && isNew) {
         if (document.title === title) {
           return document.title = 'New Message';
