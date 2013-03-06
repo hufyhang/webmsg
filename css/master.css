@@ -163,3 +163,8 @@ audio {
 label {
     font-family: arial, sans serif;
 }
+
+#title_div {
+    font-family: arial, sans serif;
+    text-align: center;
+}

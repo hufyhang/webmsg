@@ -8,6 +8,13 @@ $ ->
         'SUP': 'img/sup.jpg'
         'LOL': 'img/lol.jpg'
         'OOPS': 'img/oops.jpeg'
+        'XIXI': 'img/xixi.jpeg'
+        'HEIHEI': 'img/heihei.png'
+        'CONGRATS': 'img/congrats.jpg'
+        '...': 'img/nocomments.jpg'
+        'LTYC': 'img/ltyc.jpeg'
+        'WHAT??!!': 'img/what.jpg'
+        'BUT WHY?': 'img/butwhy.jpeg'
 
     user = undefined
     sendSound = document.getElementById('sendAudio')
@@ -25,7 +32,7 @@ $ ->
         $('#chat_main_table').show()
         $('#msg_input').focus()
         user = new User $('#homepage_input_id').val(), $('#homepage_input_session').val()
-        document.title = user.getId() + '@WebMsg'
+        document.title = user.getId() + '@' + user.getSession() + ' -- WebMsg'
         title = document.title
         source = new EventSource 'php/sse.php?session=' + user.getSession()
         source.onmessage = (event) ->
@@ -85,8 +92,10 @@ $ ->
         document.title = title
         isFocused = true
         isNew = false
+        msgSound.muted = true
     ).focusout( ->
         isFocused = false
+        msgSound.muted = false if not $('#mute_box').checked
     )
 
     setInterval( ->

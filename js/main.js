@@ -13,7 +13,14 @@
       'FUCK': 'img/fuck.gif',
       'SUP': 'img/sup.jpg',
       'LOL': 'img/lol.jpg',
-      'OOPS': 'img/oops.jpeg'
+      'OOPS': 'img/oops.jpeg',
+      'XIXI': 'img/xixi.jpeg',
+      'HEIHEI': 'img/heihei.png',
+      'CONGRATS': 'img/congrats.jpg',
+      '...': 'img/nocomments.jpg',
+      'LTYC': 'img/ltyc.jpeg',
+      'WHAT??!!': 'img/what.jpg',
+      'BUT WHY?': 'img/butwhy.jpeg'
     };
     user = void 0;
     sendSound = document.getElementById('sendAudio');
@@ -31,7 +38,7 @@
       $('#chat_main_table').show();
       $('#msg_input').focus();
       user = new User($('#homepage_input_id').val(), $('#homepage_input_session').val());
-      document.title = user.getId() + '@WebMsg';
+      document.title = user.getId() + '@' + user.getSession() + ' -- WebMsg';
       title = document.title;
       source = new EventSource('php/sse.php?session=' + user.getSession());
       return source.onmessage = function(event) {
@@ -99,9 +106,13 @@
     $([window, document]).focusin(function() {
       document.title = title;
       isFocused = true;
-      return isNew = false;
+      isNew = false;
+      return msgSound.muted = true;
     }).focusout(function() {
-      return isFocused = false;
+      isFocused = false;
+      if (!$('#mute_box').checked) {
+        return msgSound.muted = false;
+      }
     });
     setInterval(function() {
       if (!isFocused && isNew) {
