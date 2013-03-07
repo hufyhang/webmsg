@@ -193,3 +193,24 @@ label {
     font-family: arial, sans serif;
     text-align: center;
 }
+
+#history_span {
+    margin-left: 5px;
+    font-family: arial, sans serif;
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    color: grey;
+    padding-left: 3px;
+    padding-right: 3px;
+    cursor: pointer;
+}
+
+.input_div {
+    margin-bottom: 5px;
+}
+
+.shadow_text {
+    text-shadow: -3px 0 5px red;
+}
+

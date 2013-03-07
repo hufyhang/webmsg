@@ -4,12 +4,13 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $(function() {
-    var Checkurl, isFocused, isNew, magic, msgSound, old, sendSound, title, user, whereami;
+    var Checkurl, GLOBAL_PUBLIC, isFocused, isNew, magic, msgSound, old, sendSound, title, user, whereami;
+    GLOBAL_PUBLIC = 'public';
     title = '';
     isFocused = true;
     isNew = false;
     magic = {
-      'WTF': 'img/wtf.jpg',
+      'WTF': 'img/wtf_bean.jpg',
       'FUCK': 'img/fuck.gif',
       'SUP': 'img/sup.jpg',
       'LOL': 'img/lol.jpg',
@@ -21,7 +22,9 @@
       'LTYC': 'img/ltyc.jpeg',
       'WHAT??!!': 'img/what.jpg',
       'BUT WHY?': 'img/butwhy.jpeg',
-      'THX': 'img/thx.jpeg'
+      'THX': 'img/thx.jpeg',
+      'HAHA': 'img/haha.gif',
+      'SO FUNNY': 'img/so-funny.jpg'
     };
     user = null;
     sendSound = document.getElementById('sendAudio');
@@ -32,9 +35,12 @@
     $('.pick_table').hide();
     $('#homepage_button').click(function() {
       var source;
-      if ($('#homepage_input_id').val() === '' || $('#homepage_input_session').val() === '') {
-        alert('Incomplete user input.');
+      if ($('#homepage_input_id').val() === '') {
+        alert('Please enter your nickname.');
         return;
+      }
+      if ($('#homepage_input_session').val() === '') {
+        $('#homepage_input_session').val(GLOBAL_PUBLIC);
       }
       $('#chat_main_table').show();
       $('#msg_input').focus();
@@ -85,7 +91,7 @@
         return $('#msg_input_button').click();
       }
     });
-    $('#msg_div').click(function() {
+    $('#history_span').click(function() {
       return $.ajax({
         url: 'php/all.php?session=' + user.getSession()
       }).done(function(msg) {

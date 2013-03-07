@@ -15,12 +15,12 @@
             <td class="homepage_table_margin_td"></td>
             <td>
                 <div><h1 id="heading_homepage">WebMsg Open Service</h1></div>
-                <div class="subtitle">Please enter your nickname and the ID of the session that you want to participate.</div>
+                <div class="subtitle">Please enter your nickname and the ID of the session that you want to participate or create.</div>
                 <div id="homepage_inputs">
                     <label>Nickname: </label>
                     <input type="TEXT" id="homepage_input_id" required /><br/>
                     <label>Session ID: </label>
-                    <input type="TEXT" id="homepage_input_session" required /><br/>
+                    <input type="TEXT" id="homepage_input_session" placeholder="Keep blank for the public session..." /><br/>
                     <input value="Enter" type="BUTTON" id="homepage_button"/>
                 </div>
             </td>
@@ -38,7 +38,7 @@
         </tr>
         <tr class="msg_input_tr">
             <td class="table_margin_td"></td>
-            <td><input type="TEXT" id="msg_input" placeholder="Write a message..."/><input type="button" id="msg_input_button" value="Send"/><label>M:</label><input type="checkbox" id="mute_box"/><br/></td>
+            <td><div class="input_div"><input type="TEXT" id="msg_input" placeholder="Write a message..."/></div><div><label>M:</label><input type="checkbox" id="mute_box"/><span id="history_span">History</span><input type="button" id="msg_input_button" value="Send"/></div></td>
             <td class="table_margin_td"></td>
         </tr>
     </table>

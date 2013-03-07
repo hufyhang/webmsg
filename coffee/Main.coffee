@@ -1,9 +1,11 @@
 $ ->
+    GLOBAL_PUBLIC = 'public'
+
     title = ''
     isFocused = true
     isNew = false
     magic =
-        'WTF': 'img/wtf.jpg'
+        'WTF': 'img/wtf_bean.jpg'
         'FUCK': 'img/fuck.gif'
         'SUP': 'img/sup.jpg'
         'LOL': 'img/lol.jpg'
@@ -16,6 +18,8 @@ $ ->
         'WHAT??!!': 'img/what.jpg'
         'BUT WHY?': 'img/butwhy.jpeg'
         'THX': 'img/thx.jpeg'
+        'HAHA': 'img/haha.gif'
+        'SO FUNNY': 'img/so-funny.jpg'
 
     user = null
     sendSound = document.getElementById('sendAudio')
@@ -27,9 +31,10 @@ $ ->
     $('.pick_table').hide()
 
     $('#homepage_button').click( ->
-        if $('#homepage_input_id').val() is '' or $('#homepage_input_session').val() is ''
-            alert 'Incomplete user input.'
+        if $('#homepage_input_id').val() is ''
+            alert 'Please enter your nickname.'
             return
+        $('#homepage_input_session').val GLOBAL_PUBLIC if $('#homepage_input_session').val() is ''
         $('#chat_main_table').show()
         $('#msg_input').focus()
         user = new User $('#homepage_input_id').val(), $('#homepage_input_session').val()
@@ -71,7 +76,7 @@ $ ->
             event.preventDefault()
             $('#msg_input_button').click()
 
-    $('#msg_div').click( ->
+    $('#history_span').click( ->
         $.ajax({
             url: 'php/all.php?session=' + user.getSession()
         }).done( (msg) ->
