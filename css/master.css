@@ -96,6 +96,15 @@ body {
     width: 100%;
     height: 100%;
     font-family: arial, sans-serif;
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+    /* Non standard for webkit */
+    word-break: break-word;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }
 
 #msg_input_button {
@@ -212,5 +221,16 @@ label {
 
 .shadow_text {
     text-shadow: -3px 0 5px red;
+}
+
+.barrel_roll {
+    -webkit-transition: -webkit-transform 4s ease;
+    -webkit-transform: rotate(360deg);
+    -moz-transition: -moz-transform 4s ease;
+    -moz-transform: rotate(360deg);
+    -o-transition: -o-transform 4s ease;
+    -o-transform: rotate(360deg);
+    transition: transform 4s ease;
+    transform: rotate(360deg);
 }
 

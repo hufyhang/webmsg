@@ -16,6 +16,9 @@ function fetchDB($session) {
     $flag = 0;
     while($row = mysqli_fetch_array($result))
     {
+        if(strtoupper($row['text']) == 'DO A BARREL ROLL' && $flag == 1)
+            return 'do a barrel roll';
+
         $class = " class='bubbleOdd' ";
         if($flag == 1) {
             $class = " class='bubbleEven' ";

@@ -4,12 +4,17 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $(function() {
-    var Checkurl, GLOBAL_PUBLIC, isFocused, isNew, magic, msgSound, old, sendSound, title, user, whereami;
+    var Checkurl, GLOBAL_PUBLIC, barrelRoll, color, getRandomColor, isColor, isFocused, isNew, magic, msgSound, old, rolled, sendSound, showHistory, title, user, whereami, whoami;
     GLOBAL_PUBLIC = 'public';
+    rolled = false;
     title = '';
     isFocused = true;
     isNew = false;
+    isColor = false;
+    color = '';
     magic = {
+      'NOT GOOD': 'img/notgood.png',
+      'THAT\'S COOL': 'img/cool.jpg',
       'WTF': 'img/wtf_bean.jpg',
       'FUCK': 'img/fuck.gif',
       'SUP': 'img/sup.jpg',
@@ -24,7 +29,10 @@
       'BUT WHY?': 'img/butwhy.jpeg',
       'THX': 'img/thx.jpeg',
       'HAHA': 'img/haha.gif',
-      'SO FUNNY': 'img/so-funny.jpg'
+      'HAHAHA': 'img/haha_yao.jpg',
+      'SO FUNNY': 'img/so-funny.jpg',
+      'NO!': 'img/no.jpg',
+      'NOT BAD': 'img/not_bad_1.jpeg'
     };
     user = null;
     sendSound = document.getElementById('sendAudio');
@@ -53,6 +61,15 @@
           if (!isFocused) {
             isNew = true + title;
           }
+          if (event.data === 'do a barrel roll') {
+            $('#msg_div').html(old);
+            if (rolled === false) {
+              barrelRoll();
+              rolled = true;
+            }
+            return;
+          }
+          rolled = false;
           msgSound.play();
           old = event.data;
           $('#msg_div').html(old);
@@ -65,14 +82,46 @@
       if ($('#msg_input').val() === '') {
         return;
       }
+      if ($('#msg_input').val() === 'barrelroll') {
+        $('#msg_input').val('');
+        barrelRoll();
+        return;
+      }
+      if ($('#msg_input').val() === 'showmehistory') {
+        $('#msg_input').val('');
+        showHistory();
+        return;
+      }
       if ($('#msg_input').val() === 'whereami') {
         $('#msg_input').val(whereami());
+        return;
+      }
+      if ($('#msg_input').val() === 'whoami') {
+        $('#msg_input').val(whoami());
+        return;
+      }
+      if ($('#msg_input').val() === 'colorme' || $('#msg_input').val() === 'colourme') {
+        isColor = true;
+        color = getRandomColor();
+        $('#msg_input').val('');
+        return;
+      }
+      if ($('#msg_input').val() === 'nocolor' || $('#msg_input').val() === 'nocolour') {
+        isColor = false;
+        color = '';
+        $('#msg_input').val('');
         return;
       }
       if ((value = magic[$('#msg_input').val().toUpperCase()]) != null) {
         msg = encodeURIComponent(Checkurl('img:' + value));
       } else {
-        msg = encodeURIComponent(Checkurl($('#msg_input').val()));
+        if (!isColor) {
+          msg = encodeURIComponent(Checkurl($('#msg_input').val()));
+        }
+        if (isColor) {
+          msg = Checkurl($('#msg_input').val());
+          msg = encodeURIComponent('<span class="shadow_text" style="color: ' + color + '">' + msg + '</span>');
+        }
       }
       $('#msg_input').val('');
       return $.ajax({
@@ -90,15 +139,6 @@
         event.preventDefault();
         return $('#msg_input_button').click();
       }
-    });
-    $('#history_span').click(function() {
-      return $.ajax({
-        url: 'php/all.php?session=' + user.getSession()
-      }).done(function(msg) {
-        $('.pick_table').show();
-        $('#pick_div').html(msg);
-        return $('#pick_div').scrollTop($('#pick_div')[0].scrollHeight);
-      });
     });
     $('.pick_td, .pick_tr').click(function() {
       $('#pick_div').html('');
@@ -131,6 +171,9 @@
     whereami = function() {
       return user.getSession();
     };
+    whoami = function() {
+      return user.getId();
+    };
     setInterval(function() {
       if (!(user != null)) {
         return;
@@ -143,7 +186,7 @@
         }
       }
     }, 1000);
-    return Checkurl = function(text) {
+    Checkurl = function(text) {
       var html, url1, url2, url3;
       url1 = /(^|&lt;|\s)(www\..+?\..+?)(\s|&gt;|$)/g;
       url2 = /(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g;
@@ -153,6 +196,30 @@
         html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img width="100%" src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="');
       }
       return html;
+    };
+    getRandomColor = function() {
+      var i, letters, _i;
+      letters = '0123456789ABCDEF'.split('');
+      color = '#';
+      for (i = _i = 0; _i <= 5; i = ++_i) {
+        color += letters[Math.round(Math.random() * 15)];
+      }
+      return color;
+    };
+    showHistory = function() {
+      return $.ajax({
+        url: 'php/all.php?session=' + user.getSession()
+      }).done(function(msg) {
+        $('.pick_table').show();
+        $('#pick_div').html(msg);
+        return $('#pick_div').scrollTop($('#pick_div')[0].scrollHeight);
+      });
+    };
+    return barrelRoll = function() {
+      $('.chat_main_table').addClass('barrel_roll');
+      return setTimeout(function() {
+        return $('.chat_main_table').removeClass('barrel_roll');
+      }, 4000);
     };
   });
 

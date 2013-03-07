@@ -1,10 +1,15 @@
 $ ->
     GLOBAL_PUBLIC = 'public'
 
+    rolled = false
     title = ''
     isFocused = true
     isNew = false
+    isColor = false
+    color = ''
     magic =
+        'NOT GOOD': 'img/notgood.png'
+        'THAT\'S COOL': 'img/cool.jpg'
         'WTF': 'img/wtf_bean.jpg'
         'FUCK': 'img/fuck.gif'
         'SUP': 'img/sup.jpg'
@@ -19,7 +24,10 @@ $ ->
         'BUT WHY?': 'img/butwhy.jpeg'
         'THX': 'img/thx.jpeg'
         'HAHA': 'img/haha.gif'
+        'HAHAHA': 'img/haha_yao.jpg'
         'SO FUNNY': 'img/so-funny.jpg'
+        'NO!': 'img/no.jpg'
+        'NOT BAD': 'img/not_bad_1.jpeg'
 
     user = null
     sendSound = document.getElementById('sendAudio')
@@ -44,6 +52,14 @@ $ ->
         source.onmessage = (event) ->
             if event.data isnt old
                 isNew = true + title if not isFocused
+                if event.data is 'do a barrel roll'
+                    $('#msg_div').html old
+                    if rolled is false
+                        barrelRoll()
+                        rolled = true
+                    return
+
+                rolled = false
                 msgSound.play()
                 old = event.data
                 $('#msg_div').html old
@@ -52,13 +68,37 @@ $ ->
 
     $('#msg_input_button').click( ->
         return if $('#msg_input').val() is ''
+        if $('#msg_input').val() is 'barrelroll'
+            $('#msg_input').val ''
+            barrelRoll()
+            return
+        if $('#msg_input').val() is 'showmehistory'
+            $('#msg_input').val ''
+            showHistory()
+            return
         if $('#msg_input').val() is 'whereami'
             $('#msg_input').val whereami()
+            return
+        if $('#msg_input').val() is 'whoami'
+            $('#msg_input').val whoami()
+            return
+        if $('#msg_input').val() is 'colorme' or $('#msg_input').val() is 'colourme'
+            isColor = true
+            color = getRandomColor()
+            $('#msg_input').val ''
+            return
+        if $('#msg_input').val() is 'nocolor' or $('#msg_input').val() is 'nocolour'
+            isColor = false
+            color = ''
+            $('#msg_input').val ''
             return
         if (value = magic[$('#msg_input').val().toUpperCase()])?
             msg = encodeURIComponent Checkurl 'img:' + value
         else
-            msg = encodeURIComponent Checkurl $('#msg_input').val()
+            msg = encodeURIComponent Checkurl $('#msg_input').val() if not isColor
+            if isColor
+                msg = Checkurl $('#msg_input').val()
+                msg = encodeURIComponent '<span class="shadow_text" style="color: ' + color + '">' + msg + '</span>'
         $('#msg_input').val ''
         $.ajax({
             url: 'php/send.php?user=' + user.getId() + '&session=' + user.getSession() + '&msg=' + msg
@@ -75,16 +115,6 @@ $ ->
         if event.which is 13
             event.preventDefault()
             $('#msg_input_button').click()
-
-    $('#history_span').click( ->
-        $.ajax({
-            url: 'php/all.php?session=' + user.getSession()
-        }).done( (msg) ->
-            $('.pick_table').show()
-            $('#pick_div').html msg
-            $('#pick_div').scrollTop($('#pick_div')[0].scrollHeight)
-        )
-    )
 
     $('.pick_td, .pick_tr').click( ->
         $('#pick_div').html ''
@@ -110,6 +140,9 @@ $ ->
 
     whereami = ->
         user.getSession()
+    
+    whoami = ->
+        user.getId()
 
     setInterval( ->
         return if not user?
@@ -130,4 +163,25 @@ $ ->
             html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img width="100%" src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="')
 
         return html
+
+    getRandomColor = ->
+        letters = '0123456789ABCDEF'.split('')
+        color = '#'
+        color += letters[Math.round(Math.random() * 15)] for i in [0..5]
+        color
+
+    showHistory = ->
+        $.ajax({
+            url: 'php/all.php?session=' + user.getSession()
+        }).done( (msg) ->
+            $('.pick_table').show()
+            $('#pick_div').html msg
+            $('#pick_div').scrollTop($('#pick_div')[0].scrollHeight)
+        )
+
+    barrelRoll = ->
+        $('.chat_main_table').addClass 'barrel_roll'
+        setTimeout ->
+            $('.chat_main_table').removeClass 'barrel_roll'
+        , 4000
 
