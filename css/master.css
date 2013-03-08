@@ -234,3 +234,7 @@ label {
     transform: rotate(360deg);
 }
 
+input[type='TEXT'] {
+    border: thin solid grey;
+}
+

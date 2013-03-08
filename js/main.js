@@ -4,7 +4,7 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $(function() {
-    var Checkurl, GLOBAL_PUBLIC, barrelRoll, color, getRandomColor, isColor, isFocused, isNew, magic, msgSound, old, rolled, sendSound, showHistory, title, user, whereami, whoami;
+    var Checkurl, GLOBAL_PUBLIC, barrelRoll, brightScreen, color, darkScreen, getRandomColor, isColor, isFocused, isNew, magic, msgSound, old, rolled, sendSound, showHistory, title, user, whereami, whoami;
     GLOBAL_PUBLIC = 'public';
     rolled = false;
     title = '';
@@ -13,6 +13,9 @@
     isColor = false;
     color = '';
     magic = {
+      'WAZZ UP': 'img/Orange.jpg',
+      'THUMB UP': 'img/thumb_up.jpg',
+      '!!!': 'img/angry.png',
       'NOT GOOD': 'img/notgood.png',
       'THAT\'S COOL': 'img/cool.jpg',
       'WTF': 'img/wtf_bean.jpg',
@@ -80,6 +83,16 @@
     $('#msg_input_button').click(function() {
       var msg, value;
       if ($('#msg_input').val() === '') {
+        return;
+      }
+      if ($('#msg_input').val() === 'darkscreen') {
+        $('#msg_input').val('');
+        darkScreen();
+        return;
+      }
+      if ($('#msg_input').val() === 'brightscreen') {
+        $('#msg_input').val('');
+        brightScreen();
         return;
       }
       if ($('#msg_input').val() === 'barrelroll') {
@@ -154,7 +167,7 @@
         return msgSound.muted = false;
       }
     });
-    $([window, document]).focusin(function() {
+    $([window, document, 'table', 'input']).focusin(function() {
       document.title = title;
       isFocused = true;
       isNew = false;
@@ -215,11 +228,28 @@
         return $('#pick_div').scrollTop($('#pick_div')[0].scrollHeight);
       });
     };
-    return barrelRoll = function() {
+    barrelRoll = function() {
       $('.chat_main_table').addClass('barrel_roll');
       return setTimeout(function() {
         return $('.chat_main_table').removeClass('barrel_roll');
       }, 4000);
+    };
+    darkScreen = function() {
+      $('*').css('background', 'black');
+      return $('input, label').css({
+        'border': 'none',
+        'color': 'white'
+      });
+    };
+    return brightScreen = function() {
+      $('*').css('background', 'white');
+      $('input').css({
+        'border': 'thin solid grey',
+        'color': 'black'
+      });
+      return $('label').css({
+        'color': 'black'
+      });
     };
   });
 

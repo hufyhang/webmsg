@@ -8,6 +8,9 @@ $ ->
     isColor = false
     color = ''
     magic =
+        'WAZZ UP': 'img/Orange.jpg'
+        'THUMB UP': 'img/thumb_up.jpg'
+        '!!!': 'img/angry.png'
         'NOT GOOD': 'img/notgood.png'
         'THAT\'S COOL': 'img/cool.jpg'
         'WTF': 'img/wtf_bean.jpg'
@@ -68,6 +71,14 @@ $ ->
 
     $('#msg_input_button').click( ->
         return if $('#msg_input').val() is ''
+        if $('#msg_input').val() is 'darkscreen'
+            $('#msg_input').val ''
+            darkScreen()
+            return
+        if $('#msg_input').val() is 'brightscreen'
+            $('#msg_input').val ''
+            brightScreen()
+            return
         if $('#msg_input').val() is 'barrelroll'
             $('#msg_input').val ''
             barrelRoll()
@@ -127,7 +138,7 @@ $ ->
         msgSound.muted = false if element.checked is false
     )
 
-    $([window, document]).focusin( ->
+    $([window, document, 'table', 'input']).focusin( ->
         document.title = title
         isFocused = true
         isNew = false
@@ -184,4 +195,13 @@ $ ->
         setTimeout ->
             $('.chat_main_table').removeClass 'barrel_roll'
         , 4000
+
+    darkScreen = ->
+        $('*').css 'background', 'black'
+        $('input, label').css {'border': 'none', 'color': 'white'}
+
+    brightScreen = ->
+        $('*').css 'background', 'white'
+        $('input').css {'border': 'thin solid grey', 'color': 'black'}
+        $('label').css 'color': 'black'
 
