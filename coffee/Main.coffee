@@ -6,8 +6,38 @@ $ ->
     isFocused = true
     isNew = false
     isColor = false
+    isGradient = false
     color = ''
+    gradient = ''
     magic =
+        'WHY YOU\'RE SO COOL': 'img/why_so_cool.jpg'
+        'WHY YOU\'RE SO COOL?': 'img/why_so_cool.jpg'
+        'HOHO': 'img/ho-ho-ho.jpg'
+        'HOUHOU': 'img/ho-ho-ho.jpg'
+        'SOUNDS GOOD': 'img/sounds-good.jpg'
+        'YOU\'RE SO COOL': 'img/youre-so-cool.jpg'
+        'VERY NICE': 'img/very_nice.jpg'
+        'YOU ROCK': 'img/you_rock.png'
+        'HEY BOY': 'img/hey_boy.jpg'
+        'SIMPLES': 'img/simples.jpg'
+        'AH I SEE': 'img/I_c.jpg'
+        'NEVER MIND': 'img/never_mind.jpeg'
+        'OH YOU\'RE COOL': 'img/oh-you-re-cool.jpg'
+        'YOU\'RE COOL': 'img/oh-you-re-cool.jpg'
+        'DEAL WITH IT': 'img/deal_with_it.jpg'
+        'CRYING': 'img/cry.png'
+        'HEY YOU\'RE AWESOME': 'img/awesome.jpg'
+        'YOU\'RE AWESOME': 'img/awesome.jpg'
+        'HEY GIRL': 'img/hey_girl.jpg'
+        'OMG, ARE YOU OK?': 'img/omg_okay.jpeg'
+        'OMG ARE YOU OK?': 'img/omg_okay.jpeg'
+        'OMG ARE YOU OK': 'img/omg_okay.jpeg'
+        'OMG, ARE YOU OK?': 'img/omg_okay.jpeg'
+        'WELL DONE': 'img/well_done.jpg'
+        'OH WELL': 'img/oh_well.jpg'
+        'THUMBS UP': 'img/thumbs_up.jpg'
+        'BEING IGNORED': 'img/ignored.png'
+        'AHAHA': 'img/ahaha.jpeg'
         'WAZZ UP': 'img/Orange.jpg'
         'THUMB UP': 'img/thumb_up.jpg'
         '!!!': 'img/angry.png'
@@ -71,10 +101,10 @@ $ ->
 
     $('#msg_input_button').click( ->
         return if $('#msg_input').val() is ''
-        if $('#msg_input').val() is 'darkscreen'
-            $('#msg_input').val ''
-            darkScreen()
-            return
+        # if $('#msg_input').val() is 'darkscreen'
+        #     $('#msg_input').val ''
+        #     darkScreen()
+        #     return
         if $('#msg_input').val() is 'brightscreen'
             $('#msg_input').val ''
             brightScreen()
@@ -94,6 +124,7 @@ $ ->
             $('#msg_input').val whoami()
             return
         if $('#msg_input').val() is 'colorme' or $('#msg_input').val() is 'colourme'
+            isGradient = false
             isColor = true
             color = getRandomColor()
             $('#msg_input').val ''
@@ -103,13 +134,29 @@ $ ->
             color = ''
             $('#msg_input').val ''
             return
+        if $('#msg_input').val() is 'gradient'
+            isColor = false
+            isGradient = true
+            ca = getRandomColor()
+            cb = getRandomColor()
+            gradient = 'style="background:' + 'linear-gradient(' + ca + ', ' + cb + '); background-clip: text; text-fill-color: transparent;' + 'background: -webkit-linear-gradient(' + ca + ', ' + cb + '); -webkit-background-clip: text; -webkit-text-fill-color: transparent;' + 'background: -moz-linear-gradient(' + ca + ', ' + cb + '); -moz-background-clip: text; -moz-text-fill-color: transparent;' + '-ie-background: linear-gradient(' + ca + ', ' + cb + '); -ie-background-clip: text; -ie-text-fill-color: transparent;' + '-o-background: linear-gradient(' + ca + ', ' + cb + '); -o-background-clip: text; -o-text-fill-color: transparent;' + '"'
+            $('#msg_input').val ''
+            return
+        if $('#msg_input').val() is 'nogradient'
+            isGradient = false
+            gradient = ''
+            $('#msg_input').val ''
+            return
         if (value = magic[$('#msg_input').val().toUpperCase()])?
             msg = encodeURIComponent Checkurl 'img:' + value
         else
-            msg = encodeURIComponent Checkurl $('#msg_input').val() if not isColor
+            msg = encodeURIComponent Checkurl $('#msg_input').val() if not isColor and not isGradient
             if isColor
                 msg = Checkurl $('#msg_input').val()
-                msg = encodeURIComponent '<span class="shadow_text" style="color: ' + color + '">' + msg + '</span>'
+                msg = encodeURIComponent '<div class="shadow_text" style="color: ' + color + '">' + msg + '</div>'
+            else if isGradient
+                msg = Checkurl $('#msg_input').val()
+                msg = encodeURIComponent '<div ' + gradient + '>' +  msg + '</div>'
         $('#msg_input').val ''
         $.ajax({
             url: 'php/send.php?user=' + user.getId() + '&session=' + user.getSession() + '&msg=' + msg
@@ -171,7 +218,7 @@ $ ->
 
         html = $.trim(text)
         if html
-            html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img width="100%" src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="')
+            html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img style="max-width: 100%; max-height: 100%;" src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="')
 
         return html
 
