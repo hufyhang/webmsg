@@ -2,7 +2,7 @@ $ ->
     GLOBAL_PUBLIC = 'public'
 
     rolled = false
-    title = ''
+    title = 'WebMsg'
     isFocused = true
     isNew = false
     isColor = false
@@ -10,10 +10,13 @@ $ ->
     color = ''
     gradient = ''
     magic =
+        'BATMAN': 'img/batman.gif'
+        'HOLY JESUS': 'img/jesus.jpg'
+        'WHAT?!': 'img/what_bang.jpg'
+        'HELLO WORLD': 'img/hello-world.jpg'
         'WHY YOU\'RE SO COOL': 'img/why_so_cool.jpg'
         'WHY YOU\'RE SO COOL?': 'img/why_so_cool.jpg'
         'HOHO': 'img/ho-ho-ho.jpg'
-        'HOUHOU': 'img/ho-ho-ho.jpg'
         'SOUNDS GOOD': 'img/sounds-good.jpg'
         'YOU\'RE SO COOL': 'img/youre-so-cool.jpg'
         'VERY NICE': 'img/very_nice.jpg'
@@ -79,12 +82,14 @@ $ ->
         $('#chat_main_table').show()
         $('#msg_input').focus()
         user = new User $('#homepage_input_id').val(), $('#homepage_input_session').val()
-        document.title = user.getId() + '@' + user.getSession() + ' -- WebMsg'
+        # document.title = user.getId() + '@' + user.getSession() + ' -- WebMsg'
+        $('#homepage_output').html ''
+        document.title = 'WebMsg'
         title = document.title
         source = new EventSource 'php/sse.php?session=' + user.getSession()
         source.onmessage = (event) ->
             if event.data isnt old
-                isNew = true + title if not isFocused
+                isNew = true if not isFocused and old isnt ''
                 if event.data is 'do a barrel roll'
                     $('#msg_div').html old
                     if rolled is false
@@ -93,7 +98,7 @@ $ ->
                     return
 
                 rolled = false
-                msgSound.play()
+                msgSound.play() if old isnt ''
                 old = event.data
                 $('#msg_div').html old
                 $('#msg_div').scrollTop($('#msg_div')[0].scrollHeight)
@@ -195,6 +200,9 @@ $ ->
         msgSound.muted = false if document.getElementById('mute_box').checked is false
         msgSound.muted = true if document.getElementById('mute_box').checked is true
     )
+    $('*').click ->
+        isFocused = true
+        msgSound.muted = true
 
     whereami = ->
         user.getSession()

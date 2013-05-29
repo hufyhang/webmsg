@@ -79,8 +79,8 @@ body {
 
 .msg_input_tr {
     width: 100%;
-    height: 10%;
-    vertical-align: middle;
+    max-height: 10%;
+    /* vertical-align: middle; */
 }
 
 #msg_input {

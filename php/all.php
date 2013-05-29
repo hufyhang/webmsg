@@ -12,7 +12,7 @@ function fetchDB($session) {
     {
         $res = "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-    $result = mysqli_query($con,"SELECT * FROM webmsg WHERE session='" . $session . "'");
+    $result = mysqli_query($con,"SELECT * FROM (SELECT * FROM webmsg WHERE session='" . $session . "' ORDER BY id DESC LIMIT 20) AS t ORDER BY id ASC");
     while($row = mysqli_fetch_array($result))
     {
         $res = $res . '<b>' . $row['user'] . '@' . $row['time'] . "</b><br/>" . $row['text'] . '<br/></span><br/><br/>';

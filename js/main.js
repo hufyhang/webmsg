@@ -7,7 +7,7 @@
     var Checkurl, GLOBAL_PUBLIC, barrelRoll, brightScreen, color, darkScreen, getRandomColor, gradient, isColor, isFocused, isGradient, isNew, magic, msgSound, old, rolled, sendSound, showHistory, title, user, whereami, whoami;
     GLOBAL_PUBLIC = 'public';
     rolled = false;
-    title = '';
+    title = 'WebMsg';
     isFocused = true;
     isNew = false;
     isColor = false;
@@ -15,10 +15,13 @@
     color = '';
     gradient = '';
     magic = {
+      'BATMAN': 'img/batman.gif',
+      'HOLY JESUS': 'img/jesus.jpg',
+      'WHAT?!': 'img/what_bang.jpg',
+      'HELLO WORLD': 'img/hello-world.jpg',
       'WHY YOU\'RE SO COOL': 'img/why_so_cool.jpg',
       'WHY YOU\'RE SO COOL?': 'img/why_so_cool.jpg',
       'HOHO': 'img/ho-ho-ho.jpg',
-      'HOUHOU': 'img/ho-ho-ho.jpg',
       'SOUNDS GOOD': 'img/sounds-good.jpg',
       'YOU\'RE SO COOL': 'img/youre-so-cool.jpg',
       'VERY NICE': 'img/very_nice.jpg',
@@ -86,13 +89,14 @@
       $('#chat_main_table').show();
       $('#msg_input').focus();
       user = new User($('#homepage_input_id').val(), $('#homepage_input_session').val());
-      document.title = user.getId() + '@' + user.getSession() + ' -- WebMsg';
+      $('#homepage_output').html('');
+      document.title = 'WebMsg';
       title = document.title;
       source = new EventSource('php/sse.php?session=' + user.getSession());
       return source.onmessage = function(event) {
         if (event.data !== old) {
-          if (!isFocused) {
-            isNew = true + title;
+          if (!isFocused && old !== '') {
+            isNew = true;
           }
           if (event.data === 'do a barrel roll') {
             $('#msg_div').html(old);
@@ -103,7 +107,9 @@
             return;
           }
           rolled = false;
-          msgSound.play();
+          if (old !== '') {
+            msgSound.play();
+          }
           old = event.data;
           $('#msg_div').html(old);
           return $('#msg_div').scrollTop($('#msg_div')[0].scrollHeight);
@@ -224,6 +230,10 @@
       if (document.getElementById('mute_box').checked === true) {
         return msgSound.muted = true;
       }
+    });
+    $('*').click(function() {
+      isFocused = true;
+      return msgSound.muted = true;
     });
     whereami = function() {
       return user.getSession();
