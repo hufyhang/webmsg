@@ -29,9 +29,13 @@ function fetchDB($session) {
         }
         // $res = $res . '<b>' . $row['user'] . '@' . $row['time'] . "</b><br/>" . $row['text'] . '<br/></span><br/><br/>';
         // $res = $res . '<span' . $class. '><b>' . $row['user'] . '@' . $row['time'] . "</b><br/>" . $row['text'] . '<br/></span>';
-        $res = $res . '<td style="width: 50%; height: 100%;"' . $class. '><b>' . $row['user'] . "</b><br/>" . $row['text'] . '</td>';
+    //     $res = $res . '<td style="width: 50%; height: 100%;"' . $class. '><b>' . $row['user'] . "</b><br/>" . $row['text'] . '</td>';
+    // }
+    // $res = '<table style="width: 100%; height: 100%;"><tr style="width: 100%; height: 100%;">' . $res . '</tr></table>';
+        //
+        $res = $res . '<span ' . $class. '><b>' . $row['user'] . "</b><br/>" . $row['text'] . '</span>';
     }
-    $res = '<table style="width: 100%; height: 100%;"><tr style="width: 100%; height: 100%;">' . $res . '</tr></table>';
+    $res = '<div class="msg-display">' . $res . '</div>';
 mysqli_close($con);
 return $res;
 }

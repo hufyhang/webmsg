@@ -86,9 +86,10 @@
       if ($('#homepage_input_session').val() === '') {
         $('#homepage_input_session').val(GLOBAL_PUBLIC);
       }
-      $('#chat_main_table').show();
+      $('.main-container').css("visibility", "visible");
       $('#msg_input').focus();
       user = new User($('#homepage_input_id').val(), $('#homepage_input_session').val());
+      $('#homepage_output').css("background-color", "white");
       $('#homepage_output').html('');
       document.title = 'WebMsg';
       title = document.title;
@@ -111,6 +112,7 @@
             msgSound.play();
           }
           old = event.data;
+          odl = old.replace(/\'/g, '\\\'');
           $('#msg_div').html(old);
           return $('#msg_div').scrollTop($('#msg_div')[0].scrollHeight);
         }
@@ -183,6 +185,7 @@
           msg = encodeURIComponent('<div class="shadow_text" style="color: ' + color + '">' + msg + '</div>');
         } else if (isGradient) {
           msg = Checkurl($('#msg_input').val());
+          msg = msg.replace(/\'/g, '\\\'');
           msg = encodeURIComponent('<div ' + gradient + '>' + msg + '</div>');
         }
       }
@@ -260,7 +263,7 @@
       url3 = /(^|&lt;|\s)(img\:.+?\..+?)(\s|&gt;|$)/g;
       html = $.trim(text);
       if (html) {
-        html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img style="max-width: 100%; max-height: 100%;" src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="');
+        html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="');
       }
       return html;
     };
@@ -283,7 +286,7 @@
       });
     };
     barrelRoll = function() {
-      $('.chat_main_table').addClass('barrel_roll');
+      $('.main-container').addClass('barrel_roll');
       return setTimeout(function() {
         return $('.chat_main_table').removeClass('barrel_roll');
       }, 4000);

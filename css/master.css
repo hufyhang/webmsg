@@ -1,47 +1,33 @@
-body {
+body, html {
+    height: 100%;
+    width: 100%;
     background-color: white;
 }
 
-.main_table {
-    height: 100%;
-    width: 100%;
-    background: transparent;
+img {
+    width: 60%;
+    height: 60%;
 }
 
-.table_margin_tr {
-    width: 100%;
-    height: 15px;
-    background: transparent;
-}
-
-.homepage_table_margin_td {
-    height: 100%;
-    width: 20%;
-    background: transparent;
-}
-
-#homepage_input_id, #homepage_input_session {
-    font-size: large;
-    height: 100%;
-    width: 50%;
-    margin-top: 15px;
-}
-
-#homepage_button {
-    margin-top: 15px;
-    font-size: large;
-    width: 120px;
-}
-
-.table_margin_td {
-    height: 100%;
-    width: 10%;
-    background: transparent;
-}
-
-.table_margin_main {
+.main-container {
+    visibility: hidden;
+    position: absolute;
     width: 100%;
     height: 100%;
+    margin: auto;
+}
+
+.jumbotron h1 {
+    font-size: 50px;
+}
+
+#homepage_output {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    right: 20%;
+    margin: auto;
+    border-radius: 6px;
 }
 
 #heading_homepage {
@@ -50,24 +36,36 @@ body {
 
 }
 
-.subtitle {
-    font-family: arial, sans serif;
-    font-style: italic;
-    color: grey;
-    text-align: center;
-}
 
 .chat_main_table {
     position: fixed;
     top: 0px;
-    z-index: 100;
+white    z-index: 100;
     height: 100%;
     width: 100%;
     background: white;
 }
 
-#homepage_inputs {
-    text-align: center;
+.bubbleOdd, .bubbleEven {
+    display: table-cell;
+    width: 48%;
+    vertical-align: middle;
+}
+
+.msg-display {
+    overflow: auto;
+    position: absolute;
+    width: 90%;
+    height: 65%;
+
+    top: 10%;
+    bottom: 20%;
+    left: 5%;
+    right: 5%;
+
+    margin: auto;
+
+    display: table;
 }
 
 .msg_tr {
@@ -84,17 +82,26 @@ body {
 }
 
 #msg_input {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+    margin: auto;
     font-size: large;
-    height: 20px;
-    width: 100%;
+    /* height: 20px; */
+    width: 90%;
 }
 
 #msg_div {
+    left: 5%;
+    right: 5%;
+    top: 5%;
+    width: 100%;
+    height: 75%;
+
     vertical-align: middle;
     overflow: auto;
-    padding-right: 10px;
-    width: 100%;
-    height: 100%;
+    /* padding-right: 10px; */
     font-family: arial, sans-serif;
     -ms-word-break: break-all;
     word-break: break-all;
@@ -112,6 +119,13 @@ body {
     font-size: large;
     /* width: 8%; */
     height: 50px;
+}
+
+#mute-control {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    margin: auto;
 }
 
 .pick_table {
@@ -152,35 +166,16 @@ body {
 
 .bubbleOdd {
     font-size: 30px;
-    /* margin: 10px; */
-    /* padding: 5px; */
     text-align: right;
     color: #00BB3F;
     padding-right: 10px;
-    /* box-shadow: 5px 5px 5px rgb(100, 100, 100); */
-    /* border-radius: 5px; */
-    /* background-image: -webkit-linear-gradient(top, #9FF33D, #00BB3F); */
-    /* background-image: -moz-linear-gradient(top, #9FF33D, #00BB3F); */
-    /* background-image: -ms-linear-gradient(top, #9FF33D, #00BB3F); */
-    /* background-image: -o-linear-gradient(top, #9FF33D, #00BB3F); */
-    /* background-image: linear-gradient(top, #9FF33D, #00BB3F); */
 }
 
 .bubbleEven {
     font-size: 30px;
-    /* margin: 10px; */
-    /* padding: 5px; */
     text-align: left;
     color: #3D9AD1;
     padding-left: 10px;
-    /* box-shadow: 5px 5px 5px rgb(100, 100, 100); */
-    /* border-radius: 5px; */
-    /* background-image: -webkit-linear-gradient(top, #34C6CD, #3D9AD1); */
-    /* background-image: -moz-linear-gradient(top, #34C6CD, #3D9AD1); */
-    /* background-image: -ms-linear-gradient(top, #34C6CD, #3D9AD1); */
-    /* background-image: -o-linear-gradient(top, #34C6CD, #3D9AD1); */
-    /* background-image: linear-gradient(top, #34C6CD, #3D9AD1); */
-    
 }
 
 audio {
@@ -192,10 +187,6 @@ audio {
 
 .msg_td {
     vertical-align: middle;
-}
-
-label {
-    font-family: arial, sans serif;
 }
 
 #title_div {
@@ -236,5 +227,10 @@ label {
 
 input[type='TEXT'] {
     border: thin solid grey;
+}
+
+img {
+    height: 70%;
+    width:: 70%;
 }
 

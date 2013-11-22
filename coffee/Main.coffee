@@ -226,7 +226,7 @@ $ ->
 
         html = $.trim(text)
         if html
-            html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img style="max-width: 100%; max-height: 100%;" src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="')
+            html = html.replace(url1, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="http://$2">$2</a>$3').replace(url2, '$1<a style="color:blue; text-decoration:underline;" target="_blank"  href="$2">$2</a>$5').replace(url3, '$1<img src="$2"/>&nbsp;$3').replace(/src=\"img\:/g, 'src="')
 
         return html
 
