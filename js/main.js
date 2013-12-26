@@ -112,7 +112,7 @@
             msgSound.play();
           }
           old = event.data;
-          odl = old.replace(/\'/g, '\\\'');
+          // old = old.replace(/\'/g, '\\\'');
           $('#msg_div').html(old);
           return $('#msg_div').scrollTop($('#msg_div')[0].scrollHeight);
         }
@@ -189,6 +189,7 @@
           msg = encodeURIComponent('<div ' + gradient + '>' + msg + '</div>');
         }
       }
+      msg = msg.replace(/\'/g, '\\\'');
       $('#msg_input').val('');
       return $.ajax({
         url: 'php/send.php?user=' + user.getId() + '&session=' + user.getSession() + '&msg=' + msg
