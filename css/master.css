@@ -5,8 +5,8 @@ body, html {
 }
 
 img {
-    width: 60%;
-    height: 60%;
+    max-width: 70% !important;
+    max-height: 70% !important;
 }
 
 .main-container {
@@ -229,8 +229,8 @@ input[type='TEXT'] {
     border: thin solid grey;
 }
 
-img {
-    height: 70%;
-    width:: 70%;
-}
+/* img { */
+/*     height: 70%; */
+/*     width:: 70%; */
+/* } */
 
